@@ -32,28 +32,28 @@ namespace otto::board::ui {
 
   static int open_device(const std::string& device_type)
   {
-    auto path = fs::path("/dev/input/by-id");
+    // auto path = fs::path("/dev/input/by-id");
 
-    for (const auto& entry : fs::directory_iterator(path)) {
-      auto file = entry.path().string();
-      if (ends_with(file, device_type)) {
-        auto fullpath = path / file;
-        auto fd       = open(fullpath.c_str(), O_RDONLY | O_NONBLOCK);
-        LOGI("Opening device {}", fullpath);
-        if (fd < 0) {
-          LOGE("Couldn't open a file descriptor for {}", fullpath.string());
-          return -1;
-        }
+    // for (const auto& entry : fs::directory_iterator(path)) {
+    //   auto file = entry.path().string();
+    //   if (ends_with(file, device_type)) {
+    //     auto fullpath = path / file;
+    //     auto fd       = open(fullpath.c_str(), O_RDONLY | O_NONBLOCK);
+    //     LOGI("Opening device {}", fullpath);
+    //     if (fd < 0) {
+    //       LOGE("Couldn't open a file descriptor for {}", fullpath.string());
+    //       return -1;
+    //     }
 
-        auto result = ioctl(fd, EVIOCGRAB, 1);
-        if (result != 0) {
-          LOGE("Couldn't get exclusive input access to {}", fullpath.string());
-          return -1;
-        }
+    //     auto result = ioctl(fd, EVIOCGRAB, 1);
+    //     if (result != 0) {
+    //       LOGE("Couldn't get exclusive input access to {}", fullpath.string());
+    //       return -1;
+    //     }
 
-        return fd;
-      }
-    }
+    //     return fd;
+    //   }
+    // }
 
     return -1;
   }
